@@ -1,0 +1,159 @@
+/* Глобальные стили для формы */
+form {
+  max-width: 100%;
+
+  label {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.85);
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+    outline: none;
+
+    textarea {
+      resize: vertical;
+    }
+  }
+  select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 14px;
+    outline: none;
+    background-color: #fff;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+
+  /* Стили для <option> */
+  select option {
+    padding: 12px;
+    margin-bottom: 8px; /* увеличьте или уменьшите это значение по вашему усмотрению */
+  }
+
+  /* Имитация стилей Bootstrap для активного состояния <select> */
+  select:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+
+  /* Имитация стилей Bootstrap для hover-состояния <option> */
+  select option:hover {
+    background-color: #f8f9fa;
+  }
+  button {
+    background-color: #1890ff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: -4px;
+  }
+}
+/* Глобальные стили для кнопок */
+.btn {
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+
+  &.edit {
+    background-color: #ffc107;
+    color: #000;
+  }
+
+  &.delete {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  &.primary {
+    background-color: #1890ff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  &.close {
+    padding: 5px !important;
+  }
+}
+/* Стили для таблицы */
+table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid #dee2e6;
+
+  th,
+  td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+  }
+
+  th {
+    font-weight: bold;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+
+  .small-cell,
+  .actions-cell {
+    width: 10%;
+  }
+
+  .large-cell {
+    width: 30%;
+  }
+}
+
+.error {
+  padding: 4px;
+  background-color: #fff2f0;
+  border: 1px solid red;
+  border-radius: 5px;
+  padding: 15px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.card img {
+  width: 234px;
+}
+
+.slides-iamge {
+  width: 100%;
+}
+ 

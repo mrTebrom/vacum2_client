@@ -1,0 +1,38 @@
+.loadingWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transition: opacity 0.5s ease-in-out, transform 1s ease-in-out;
+}
+
+.loadingAnimation {
+  font-size: 24px;
+  position: relative;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-100%);
+}
+
+.shtorka {
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: height 1s ease-in-out;
+}
+
+.shtorkaClosed {
+  height: 0;
+}

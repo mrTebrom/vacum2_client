@@ -1,0 +1,39 @@
+/* Стили для формы добавления записи */
+.form-container {
+  margin-bottom: 16px;
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+  }
+
+  button {
+    background-color: #1890ff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+}
+/* Глобальные стили для контейнера */
+.container {
+  display: flex;
+  height: 100vh;
+
+  .form {
+    width: 30%;
+    padding: 0 16px;
+  }
+
+  .content {
+    width: 70%;
+    padding: 0 16px;
+  }
+}

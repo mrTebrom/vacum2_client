@@ -1,0 +1,157 @@
+.main {
+  max-width: 100vw;
+  overflow: hidden; /* Добавлено свойство overflow: hidden */
+  box-sizing: border-box;
+}
+
+.main {
+  max-width: 100vw;
+}
+.sectionCatalog {
+  margin-top: 20px;
+  padding-left: 35px;
+  padding-right: 35px;
+  @media (max-width: 768px) {
+    padding: 5px;
+  }
+}
+.catalogTitle {
+  font-size: 29px;
+  font-weight: 400;
+  text-align: center;
+  width: max-content;
+  margin: auto;
+  padding-left: 7px;
+  padding-right: 7px;
+  border-bottom: 1px solid black;
+  cursor: default;
+}
+
+.catalogSubTitle {
+  font-size: 19px;
+  font-weight: 200;
+  color: #9a9a9a;
+  text-align: center;
+  margin-top: 12px;
+  cursor: default;
+}
+
+.catalogPoppup {
+  display: flex;
+  gap: 30px;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  padding-left: 23px;
+}
+.catalogPoppupSpan {
+  font-size: 22px;
+  display: block;
+  color: #4b3a5a;
+  opacity: 0.7;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.catalogPoppupSpanActive {
+  font-size: 22px;
+  display: block;
+  color: #4b3a5a;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.cardList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  padding: 0;
+  justify-content: center;
+  overflow: hidden;
+  flex-wrap: wrap;
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(1, 1fr) !important;
+    padding: 10px 15px;
+  }
+}
+.promotion {
+  padding: 30px 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fafafa;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 10px;
+    align-items: center;
+    gap: 10px;
+  }
+}
+.promotionInfo {
+  align-items: center;
+  @media (max-width: 768px) {
+    text-align: center;
+    margin: 0;
+  }
+}
+.promotionTitle {
+  font-size: 45px;
+  font-weight: 900;
+  color: #474a51;
+}
+.promotionDescription {
+  font-size: 16px;
+  color: #474a51;
+}
+.promotionButton {
+  background-color: #15616d;
+  width: 236.44px;
+  height: 53.33px;
+  font-size: 16.89px;
+  color: #fff;
+  border-width: 1px;
+  border-color: #15616d;
+  outline: none !important;
+}
+.promotionImage {
+  display: flex;
+}
+.promotionImage {
+  display: flex;
+  max-width: 100%;
+  align-items: flex-end;
+  @media (max-width: 768px) {
+    position: relative;
+  }
+}
+.promotionDiscont {
+  font-size: 80px;
+  font-style: italic;
+  color: #474a51;
+  margin: 0 !important;
+  @media (max-width: 768px) {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+  }
+}
+.promotionImageSrc {
+  max-width: 100%;
+}
+/* Применить стили, когда ширина экрана меньше 1200px */
+@media screen and (max-width: 1200px) {
+  .cardList {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Применить стили, когда ширина экрана меньше 900px */
+@media screen and (max-width: 900px) {
+  .cardList {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Применить стили, когда ширина экрана меньше 600px */
+@media screen and (max-width: 600px) {
+  .cardList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

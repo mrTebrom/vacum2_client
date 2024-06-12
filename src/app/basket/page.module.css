@@ -1,0 +1,149 @@
+.section {
+  padding: 25px 60px;
+  @media screen and (max-width: 768px) {
+    padding: 5px;
+  }
+}
+.breadcrumb {
+  text-decoration: none;
+  cursor: pointer;
+  color: #000;
+}
+.breadcrumbContainer {
+  display: flex;
+  gap: 10px;
+  flex-flow: nowrap;
+}
+
+.title {
+  font-size: 32px;
+  margin-top: 24px;
+  @media screen and (max-width: 768px) {
+    margin-top: 8px;
+  }
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+  border-bottom: 1px solid #cacdd8;
+  padding: 10px;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(12, 1fr);
+  }
+}
+.layoutImage {
+  grid-column: span 4;
+  @media (max-width: 768px) {
+    grid-column: span 24;
+  }
+}
+.layoutTitle {
+  grid-column: span 6;
+  @media (max-width: 768px) {
+    grid-column: span 24;
+  }
+}
+.layoutPrice {
+  grid-column: span 4;
+  @media (max-width: 768px) {
+    font-size: 14px;
+    grid-row: span 4;
+    display: block;
+  }
+}
+.layoutQue {
+  grid-column: span 4;
+  @media (max-width: 768px) {
+    font-size: 14px;
+    grid-row: span 4;
+  }
+}
+.layoutItog {
+  grid-column: span 4;
+  @media (max-width: 768px) {
+    font-size: 14px;
+    grid-row: span 4;
+    display: block;
+  }
+}
+
+.layputFather {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  gap: 35px;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.border {
+  border: none !important;
+  @media screen and (min-width: 768px) {
+    border: 1px solid #ccc !important;
+  }
+}
+
+.sell {
+  background-color: #f5f7ff;
+  padding: 20px 30px;
+}
+
+.sellTitle {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.sellh2 {
+  font-size: 18px;
+  font-weight: normal;
+}
+
+.itog {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 8px 0;
+}
+.promocode {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.promocodeInput {
+  width: 100%;
+  border: none;
+
+  padding: 7px 14px;
+  outline: none !important;
+}
+.promocodeFlex {
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+.promocodeBtn {
+  background-color: transparent;
+  border: none;
+  border-left: 1px solid #ccc;
+  background-color: #0ff426;
+  color: #ffffff;
+  cursor: pointer;
+}
+.sellTelegram {
+  background-color: #0156ff;
+  color: #ffffff;
+  width: 100%;
+  border-radius: 16px;
+  padding: 14px;
+  border-color: transparent;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.sellTelegram:disabled {
+  background-color: #ccc;
+  transition: 0.5s;
+  cursor: not-allowed;
+}

@@ -1,0 +1,9 @@
+.slider-container {
+  display: flex;
+  overflow: hidden;
+}
+
+.slider-slide {
+  flex: 0 0 100%; /* Ширина слайда (100% для одного слайда) */
+  transition: transform 0.3s ease; /* Плавная анимация перехода */
+}

@@ -1,0 +1,233 @@
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 60px;
+  padding-top: 25px;
+  margin-bottom: 10px;
+  .logo {
+    flex: 0 0 auto;
+  }
+
+  .logoImage {
+    width: 75px; /* Укажите желаемую ширину логотипа */
+    height: auto;
+  }
+
+  .search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border: 1px solid #dbdbdb; /* Цвет бордера */
+    border-radius: 19.5px;
+    gap: 0;
+
+    .input-search {
+      border: none;
+      outline: none !important;
+      display: block;
+      border: none !important;
+      margin-left: 0px;
+      width: 0;
+      overflow: hidden;
+      padding: 0;
+      transition: 0.4s;
+
+      &.visible {
+        width: 450px;
+        transition: 0.4s;
+        padding-left: 20px !important;
+      }
+    }
+  }
+
+  nav {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+
+    ul {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 30px;
+
+      li {
+        list-style: none;
+
+        a {
+          color: #000;
+          text-decoration: none;
+          position: relative;
+          padding: 4px;
+
+          &:hover::after {
+            transition: 0.5s;
+            transform: scale(1);
+          }
+
+          &::after {
+            content: '';
+            width: 100%;
+            height: 1px;
+            background-color: #000;
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            transform: scale(0);
+            transition: 0.5s;
+          }
+        }
+      }
+    }
+  }
+
+  .rightSection {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    position: relative;
+
+    .authIndicator {
+      position: relative;
+      margin-left: 1rem;
+      cursor: pointer;
+    }
+
+    .auth {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      width: 354px;
+      background-color: #ececec;
+      border-radius: 32px;
+      top: calc(100% + 30px);
+      right: 30px;
+      z-index: 2;
+      opacity: 0;
+      animation: slideOut 0.3s ease forwards;
+      padding: 0;
+      padding-top: 37px;
+      padding-bottom: 17px;
+      &::before {
+        content: '';
+        position: absolute;
+        top: -25px;
+        right: 15px;
+        border-left: 34px solid transparent;
+        border-right: 34px solid transparent;
+        border-bottom: 58px solid #ececec;
+      }
+
+      &.active {
+        display: flex;
+        animation: slideIn 0.3s ease forwards;
+      }
+      label {
+        font-size: 16px;
+      }
+    }
+
+    .auth-bg {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background-color: #20202073;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      opacity: 0;
+      animation: slideOut 0.3s ease forwards;
+      pointer-events: none; /* Чтобы клики не проходили через затемненный фон */
+      transition: opacity 0.3s ease;
+
+      &.active {
+        opacity: 1;
+        animation: slideIn 0.3s ease forwards;
+        pointer-events: auto; /* Возвращаем обратно для возможности взаимодействия */
+      }
+    }
+  }
+
+  .icon {
+    margin-left: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+}
+.userSignIn {
+  display: none;
+}
+.btn-list-mobile {
+  display: none;
+}
+.navbar-menu-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 16px;
+  a {
+    text-decoration: none;
+    color: #000;
+  }
+  h3 {
+    margin-top: 8px;
+    margin-bottom: 0px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #000;
+  }
+}
+@media (max-width: 768px) {
+  header {
+    padding: 5px 10px;
+    .rightSection {
+      display: none;
+    }
+    .navbar {
+      display: none;
+    }
+    .logo {
+      display: none;
+    }
+  }
+  .userSignIn {
+    display: block !important;
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+  }
+  .btn-list-mobile {
+    display: flex;
+    gap: 10px;
+    button {
+      background-color: transparent;
+      border: none;
+      font-size: 24px;
+    }
+  }
+}
