@@ -1,28 +1,28 @@
-'use client';
-import { useEffect, useState, ChangeEvent, FormEvent } from 'react';
-import { Modal, Result } from 'antd';
-import styles from './styles.module.css';
-import { useAppDispatch, useAppSelector } from '@/lib/store.hook';
-import { setBasket } from '@/lib/slice/basket.slice';
-import { IBasket } from '@/lib/interface';
-import axios from 'axios';
-import ReactInputMask from 'react-input-mask';
-import { redirectAction } from './redirect';
+"use client";
+import { useEffect, useState, ChangeEvent, FormEvent } from "react";
+import { Modal, Result } from "antd";
+import styles from "./styles.module.css";
+import { useAppDispatch, useAppSelector } from "@/lib/store.hook";
+import { setBasket } from "@/lib/slice/basket.slice";
+import { IBasket } from "@/lib/interface";
+import axios from "axios";
+import ReactInputMask from "react-input-mask";
+import { redirectAction } from "./redirect";
 
 export default function Form() {
   const { products } = useAppSelector((state) => state.basket);
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
-    firstName: '',
-    phone: '+7',
-    comment: '',
-    paymentType: '', // Добавляем состояние для выбора способа оплаты
+    firstName: "",
+    phone: "+7",
+    comment: "",
+    paymentType: "", // Добавляем состояние для выбора способа оплаты
   });
 
   const [errors, setErrors] = useState({
-    firstName: '',
-    phone: '',
+    firstName: "",
+    phone: "",
   });
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -45,7 +45,7 @@ export default function Form() {
     if (formData.firstName.length < 3) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        firstName: 'Имя должно содержать не менее 3 символов',
+        firstName: "Имя должно содержать не менее 3 символов",
       }));
       return;
     }
@@ -55,20 +55,20 @@ export default function Form() {
     if (!phoneRegex.test(formData.phone)) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        phone: 'Некорректный формат телефона (ожидается: +7(777)777-77-77)',
+        phone: "Некорректный формат телефона (ожидается: +7(777)777-77-77)",
       }));
       return;
     }
 
     // Сброс ошибок перед отправкой данных
     setErrors({
-      firstName: '',
-      phone: '',
+      firstName: "",
+      phone: "",
     });
 
     // Здесь можно обработать отправку формы, например, вызвать функцию onFinish
     axios
-      .post('http://localhost:5000/api/order', {
+      .post("http://localhost:5000/api/order", {
         name: formData.firstName,
         phone: formData.phone,
         type: formData.paymentType,
@@ -81,7 +81,7 @@ export default function Form() {
   };
 
   useEffect(() => {
-    let initial = localStorage.getItem('basket');
+    let initial = localStorage.getItem("basket");
     if (initial) {
       const parse = JSON.parse(initial) as IBasket[];
 
@@ -90,35 +90,78 @@ export default function Form() {
   }, []);
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
+    <form
+      onSubmit={handleSubmit}
+      className={styles.form}
+    >
       <div>
         <label htmlFor="firstName">Имя</label>
-        <input type="text" name="firstName" value={formData.firstName} onChange={handleInputChange} />
+        <input
+          type="text"
+          name="firstName"
+          value={formData.firstName}
+          onChange={handleInputChange}
+        />
         {errors.firstName && <p className={styles.error}>{errors.firstName}</p>} {/* Отображение ошибки валидации имени */}
         <label htmlFor="phone">Телефон</label>
-        <ReactInputMask mask="+7(999)999-99-99" type="text" name="phone" value={formData.phone} onChange={handleInputChange} />
+        <ReactInputMask
+          mask="+7(999)999-99-99"
+          type="text"
+          name="phone"
+          value={formData.phone}
+          onChange={handleInputChange}
+        />
         {errors.phone && <p className={styles.error}>{errors.phone}</p>} {/* Отображение ошибки валидации телефона */}
         <label htmlFor="comment">Комментарий</label>
-        <textarea name="comment" value={formData.comment} onChange={handleInputChange} cols={30} rows={10}></textarea>
+        <textarea
+          name="comment"
+          value={formData.comment}
+          onChange={handleInputChange}
+          cols={30}
+          rows={10}
+        ></textarea>
       </div>
       <div>
         <div className={styles.itog}>
           <h1>Общий итог</h1>
-          {eval(products.map((item) => item.que * item.price).join('+'))}
+          {eval(products.map((item) => item.que * item.price).join("+"))}
         </div>
         <h3 className={styles.h3}>Способ оплаты</h3>
         <label htmlFor="kaspi">
-          <input type="radio" name="paymentType" value="Каспи" onChange={handleInputChange} className={styles.checkbox} />
-          Kaspi
+          <input
+            type="radio"
+            name="paymentType"
+            value="Каспи"
+            onChange={handleInputChange}
+            className={styles.checkbox}
+          />
+          Оплатит сейчас (Kaspi QR)
         </label>
         <label htmlFor="cash">
-          <input type="radio" name="paymentType" value="Наличка" onChange={handleInputChange} className={styles.checkbox} />
-          Наличными
+          <input
+            type="radio"
+            name="paymentType"
+            value="Наличка"
+            onChange={handleInputChange}
+            className={styles.checkbox}
+          />
+          Оплатить при получений
         </label>
+
         <button type="submit">Оплатить</button>
       </div>
-      <Modal open={open} onCancel={onClose} footer={[]} title={''} width={1000}>
-        <Result status="success" title="Спасибо за покупку" subTitle="Менеджер свяжется с вами течение 10 минут с 8 до 23 рабочего времени" />
+      <Modal
+        open={open}
+        onCancel={onClose}
+        footer={[]}
+        title={""}
+        width={1000}
+      >
+        <Result
+          status="success"
+          title="Спасибо за покупку"
+          subTitle="Менеджер свяжется с вами течение 10 минут с 8 до 23 рабочего времени"
+        />
       </Modal>
     </form>
   );

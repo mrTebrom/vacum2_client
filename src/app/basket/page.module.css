@@ -141,6 +141,17 @@
   border-color: transparent;
   transition: 0.5s;
   cursor: pointer;
+  margin-bottom: 16px;
+}
+.sellKaspi {
+  background-color: #ff0101;
+  color: #ffffff;
+  width: 100%;
+  border-radius: 16px;
+  padding: 14px;
+  border-color: transparent;
+  transition: 0.5s;
+  cursor: pointer;
 }
 .sellTelegram:disabled {
   background-color: #ccc;

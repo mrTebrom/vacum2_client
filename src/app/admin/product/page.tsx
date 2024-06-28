@@ -1,14 +1,15 @@
-'use client';
-import Drawer from '@/app/components/drawer';
-import { useState, ChangeEvent, useRef, Dispatch, SetStateAction, useEffect, FC } from 'react';
-import { CloseOutlined, UploadOutlined, CloseCircleOutlined, PercentageOutlined } from '@ant-design/icons';
-import './style.css';
-import { useGetCategoriesQuery } from '@/lib/query/category.query';
-import { productFormValid } from './service';
-import { FormError } from './service';
-import { useCreateProductMutation, useDestroyProductMutation, useGetByIdProductQuery, useGetProductsQuery, useUpdateProductMutation, useUploadImagesMutation } from '@/lib/query/product.query';
-import { CreateProduct, IAttribute, IProduct } from '@/lib/interface';
-import { Slider } from 'antd';
+"use client";
+import Drawer from "@/app/components/drawer";
+import { useState, ChangeEvent, useRef, Dispatch, SetStateAction, useEffect, FC } from "react";
+import { CloseOutlined, UploadOutlined, CloseCircleOutlined, PercentageOutlined } from "@ant-design/icons";
+import "./style.css";
+import { useGetCategoriesQuery } from "@/lib/query/category.query";
+import { productFormValid } from "./service";
+import { FormError } from "./service";
+import { useCreateProductMutation, useDestroyProductMutation, useGetByIdProductQuery, useGetProductsQuery, useUpdateProductMutation, useUploadImagesMutation } from "@/lib/query/product.query";
+import { CreateProduct, IAttribute, IProduct } from "@/lib/interface";
+import { Slider } from "antd";
+import Image from "next/image";
 
 export default function ProductAdmin() {
   useEffect(() => {}, []);
@@ -19,7 +20,7 @@ export default function ProductAdmin() {
   return (
     <>
       <button
-        className='btn primary'
+        className="btn primary"
         onClick={show}
       >
         Создать товар
@@ -28,7 +29,7 @@ export default function ProductAdmin() {
       <Drawer
         open={open}
         close={hide}
-        title='Создать товар'
+        title="Создать товар"
       >
         <Form
           close={hide}
@@ -46,10 +47,10 @@ const Form: FC<{ close: Function; editData?: IProduct | undefined }> = ({ close,
   const [upload] = useUploadImagesMutation();
   const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState<CreateProduct>({
-    title: '',
+    title: "",
     price: 0,
     categoryId: 1,
-    description: '',
+    description: "",
     discont: 0,
     typeDiscont: false,
     attributes: [],
@@ -89,10 +90,10 @@ const Form: FC<{ close: Function; editData?: IProduct | undefined }> = ({ close,
       setAttributes(editData.attributes);
     } else {
       setForm({
-        title: '',
+        title: "",
         price: 0,
         categoryId: 1,
-        description: '',
+        description: "",
         discont: 0,
         typeDiscont: false,
         attributes: [],
@@ -105,7 +106,7 @@ const Form: FC<{ close: Function; editData?: IProduct | undefined }> = ({ close,
     const { name, value } = e.target;
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
 
-    if (name === 'categoryId') {
+    if (name === "categoryId") {
       const selectedCategory = data?.find((item) => item.id === Number(value));
       setAttributes(selectedCategory?.attributes || []);
     }
@@ -117,7 +118,7 @@ const Form: FC<{ close: Function; editData?: IProduct | undefined }> = ({ close,
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(attributes, 'dd');
+    console.log(attributes, "dd");
 
     const validationError: FormError | null = productFormValid({ ...form, files: images });
 
@@ -125,7 +126,7 @@ const Form: FC<{ close: Function; editData?: IProduct | undefined }> = ({ close,
       setErrorForm(validationError);
     } else {
       const formData = new FormData();
-      for (let file of images) formData.append('files', file);
+      for (let file of images) formData.append("files", file);
 
       upload(formData).then((res) => {
         if (editData) {
@@ -164,63 +165,63 @@ const Form: FC<{ close: Function; editData?: IProduct | undefined }> = ({ close,
   return (
     <form onSubmit={handleSubmit}>
       {error && (
-        <div className='error'>
+        <div className="error">
           <CloseCircleOutlined /> {error}
         </div>
       )}
-      <label htmlFor='title'>Название</label>
+      <label htmlFor="title">Название</label>
       <input
-        type='text'
-        id='title'
-        name='title'
+        type="text"
+        id="title"
+        name="title"
         value={form.title}
         onChange={handleChange}
       />
-      <span style={{ color: 'red' }}>{errorForm.title}</span>
+      <span style={{ color: "red" }}>{errorForm.title}</span>
 
-      <label htmlFor='price'>Цена</label>
+      <label htmlFor="price">Цена</label>
       <input
-        type='number'
-        id='price'
-        name='price'
+        type="number"
+        id="price"
+        name="price"
         value={form.price}
         onChange={handleChange}
       />
-      <span style={{ color: 'red' }}>{errorForm.price}</span>
+      <span style={{ color: "red" }}>{errorForm.price}</span>
 
-      <label htmlFor='discont'>Скидка</label>
-      <div style={{ display: 'flex', marginBottom: 16 }}>
+      <label htmlFor="discont">Скидка</label>
+      <div style={{ display: "flex", marginBottom: 16 }}>
         <input
           style={{ margin: 0 }}
-          type='number'
-          id='discont'
-          name='discont'
+          type="number"
+          id="discont"
+          name="discont"
           value={form.discont}
           onChange={handleChange}
         />
         <button
-          style={{ padding: 0, height: 'auto', paddingLeft: 7, paddingRight: 7, width: '30px !important' }}
+          style={{ padding: 0, height: "auto", paddingLeft: 7, paddingRight: 7, width: "30px !important" }}
           onClick={() => setForm((prevForm) => ({ ...prevForm, typeDiscont: !prevForm.typeDiscont }))}
-          type='button'
+          type="button"
         >
-          <span style={{ width: 16, display: 'block' }}>{form.typeDiscont ? '₸' : <PercentageOutlined />}</span>
+          <span style={{ width: 16, display: "block" }}>{form.typeDiscont ? "₸" : <PercentageOutlined />}</span>
         </button>
       </div>
-      <span style={{ color: 'red' }}>{errorForm.price}</span>
+      <span style={{ color: "red" }}>{errorForm.price}</span>
 
-      <label htmlFor='star'>Оценка</label>
+      <label htmlFor="star">Оценка</label>
       <Slider
         value={form.star}
         max={5}
         min={0}
-        marks={{ '0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5 }}
+        marks={{ "0": 0, "1": 1, "2": 2, "3": 3, "4": 4, "5": 5 }}
         onChange={changeStar}
       />
 
-      <label htmlFor='categoryId'>Категория товара</label>
+      <label htmlFor="categoryId">Категория товара</label>
       <select
-        name='categoryId'
-        id='categoryId'
+        name="categoryId"
+        id="categoryId"
         value={form.categoryId}
         onChange={handleChange}
       >
@@ -233,33 +234,33 @@ const Form: FC<{ close: Function; editData?: IProduct | undefined }> = ({ close,
           </option>
         ))}
       </select>
-      <span style={{ color: 'red' }}>{errorForm.categoryId}</span>
+      <span style={{ color: "red" }}>{errorForm.categoryId}</span>
 
-      <label htmlFor='description'>Описание</label>
+      <label htmlFor="description">Описание</label>
       <textarea
-        id='description'
-        name='description'
+        id="description"
+        name="description"
         value={form.description}
         onChange={handleChange}
       />
-      <span style={{ color: 'red' }}>{errorForm.description}</span>
+      <span style={{ color: "red" }}>{errorForm.description}</span>
 
       {attributes.map((item) => (
         <div key={item.id}>
           <span>{item.description}</span>
           <input
             name={item.id.toString()}
-            defaultValue={item.ProductAttribute?.value || ''}
+            defaultValue={item.ProductAttribute?.value || ""}
             onChange={(e) => handleAttributeChange(item.id, e.target.value)}
           />
         </div>
       ))}
 
       <ImageUpload setValue={setImages} />
-      <span style={{ color: 'red' }}>{errorForm.files}</span>
+      <span style={{ color: "red" }}>{errorForm.files}</span>
       <button
-        type='submit'
-        style={{ margin: 'auto', display: 'block' }}
+        type="submit"
+        style={{ margin: "auto", display: "block" }}
       >
         Создать
       </button>
@@ -284,7 +285,7 @@ const EditProduct = ({ close, open, id }: { close: () => void; open: boolean; id
     <Drawer
       open={open}
       close={close}
-      title='Редактирование товара'
+      title="Редактирование товара"
     >
       <Form
         close={close}
@@ -314,7 +315,7 @@ const ImageUpload: React.FC<{ setValue: Dispatch<SetStateAction<File[]>> }> = ({
       setValue((prevValue) => [...prevValue, ...newImages.map((image) => image.file)]);
       setSelectedImages((prevImages) => [...prevImages, ...newImages]);
     } else {
-      alert('Please select valid image files.');
+      alert("Please select valid image files.");
     }
   };
 
@@ -329,38 +330,40 @@ const ImageUpload: React.FC<{ setValue: Dispatch<SetStateAction<File[]>> }> = ({
   return (
     <div>
       <button
-        className='btn btn-upload'
+        className="btn btn-upload"
         onClick={() => ref.current?.click()}
-        type='button'
+        type="button"
       >
-        <UploadOutlined /> Загрузить изображенеие
+        <UploadOutlined /> Загрузить изображение
       </button>
 
       <input
-        type='file'
+        type="file"
         ref={ref}
         multiple
-        accept='image/*'
+        accept="image/*"
         onChange={handleImageChange}
-        className='input-file'
+        className="input-file"
       />
 
       <div>
         {selectedImages.length > 0 && (
-          <ul className='image-list'>
+          <ul className="image-list">
             {selectedImages.map((image) => (
               <li
                 key={image.id}
-                style={{ display: 'flex', alignItems: 'center' }}
+                style={{ display: "flex", alignItems: "center" }}
               >
-                <img
+                <Image
                   src={URL.createObjectURL(image.file)}
                   alt={`Image ${image.id}`}
-                  style={{ maxWidth: '50px', marginRight: '10px' }}
+                  width={50}
+                  height={50}
+                  style={{ marginRight: "10px" }}
                 />
                 <p>{image.file.name}</p>
                 <button
-                  className='btn delete small'
+                  className="btn delete small"
                   onClick={() => handleRemoveImage(image.id)}
                 >
                   <CloseOutlined />
@@ -386,7 +389,7 @@ const Table = () => {
   };
 
   return (
-    <div className='table-container'>
+    <div className="table-container">
       <EditProduct
         open={edit}
         close={() => setEdit(false)}
@@ -395,40 +398,40 @@ const Table = () => {
       <table>
         <thead>
           <tr>
-            <th className='small-cell'>ID</th>
-            <th className='large-cell'>Название</th>
-            <th className='medium-cell'>Цена</th>
-            <th className='medium-cell'>Скидка</th>
-            <th className='medium-cell'>Оценка</th>
-            <th className='medium-cell'>Категория</th>
-            <th className='large-cell'>Описание</th>
-            <th className='actions-cell'></th>
+            <th className="small-cell">ID</th>
+            <th className="large-cell">Название</th>
+            <th className="medium-cell">Цена</th>
+            <th className="medium-cell">Скидка</th>
+            <th className="medium-cell">Оценка</th>
+            <th className="medium-cell">Категория</th>
+            <th className="large-cell">Описание</th>
+            <th className="actions-cell"></th>
           </tr>
         </thead>
         <tbody>
           {data?.map((product) => (
             <tr key={product.id}>
-              <td className='small-cell'>{product.id}</td>
-              <td className='large-cell'>{product.title}</td>
-              <td className='medium-cell'>{product.price}</td>
-              <td className='medium-cell'>
-                {product.discont} {product.typeDiscont ? '₸' : <PercentageOutlined />}
+              <td className="small-cell">{product.id}</td>
+              <td className="large-cell">{product.title}</td>
+              <td className="medium-cell">{product.price}</td>
+              <td className="medium-cell">
+                {product.discont} {product.typeDiscont ? "₸" : <PercentageOutlined />}
               </td>
-              <td className='medium-cell'>{product.star}</td>
-              <td className='large-cell'>{product.category.value}</td>
-              <td className='large-cell'>{product.description}</td>
+              <td className="medium-cell">{product.star}</td>
+              <td className="large-cell">{product.category.value}</td>
+              <td className="large-cell">{product.description}</td>
               <td
-                className='small-cell'
-                style={{ display: 'flex', gap: 10 }}
+                className="small-cell"
+                style={{ display: "flex", gap: 10 }}
               >
                 <button
-                  className='edit btn'
+                  className="edit btn"
                   onClick={() => handleEdit(product.id)}
                 >
                   Изменить
                 </button>
                 <button
-                  className='delete btn'
+                  className="delete btn"
                   onClick={() => destroy(product.id)}
                 >
                   Удалить
