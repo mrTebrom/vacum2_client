@@ -2,19 +2,20 @@ import { IProduct } from "@/lib/interface";
 import { PercentageOutlined } from "@ant-design/icons";
 import { StarFilled, StarOutlined } from "@ant-design/icons";
 import Link from "next/link";
+import Image from "next/image";
 import styles from "./card.module.css";
+
 export function Card({ title, images, price, id, discont, typeDiscont, star }: IProduct) {
   let finishPrice: number = price;
 
   if (discont > 0) {
     if (typeDiscont) {
-      // Если тип скидки - розничная цена, то finishPrice будет равен discont
       finishPrice = discont;
     } else {
-      // Если тип скидки - процент, то finishPrice будет равен price - (price * discont / 100)
       finishPrice = price - (price * discont) / 100;
     }
   }
+
   return (
     <Link
       href={"/product/" + id}
@@ -26,9 +27,11 @@ export function Card({ title, images, price, id, discont, typeDiscont, star }: I
             {discont} {!typeDiscont ? <PercentageOutlined /> : "₸"}{" "}
           </span>
         ) : undefined}
-        <img
+        <Image
           src={images[0]}
           alt={title}
+          width={400}
+          height={300}
         />
         <span
           className="star"

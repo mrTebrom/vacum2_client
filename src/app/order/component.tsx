@@ -17,7 +17,7 @@ export default function Form() {
     firstName: "",
     phone: "+7",
     comment: "",
-    paymentType: "", // Добавляем состояние для выбора способа оплаты
+    paymentType: "",
   });
 
   const [errors, setErrors] = useState({
@@ -32,16 +32,16 @@ export default function Form() {
       [name]: value,
     });
   };
+
   const onClose = () => {
     setOpen(false);
     dispatch(setBasket([]));
-
     redirectAction();
   };
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // Валидация имени (не менее 3 символов)
     if (formData.firstName.length < 3) {
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -50,7 +50,6 @@ export default function Form() {
       return;
     }
 
-    // Валидация телефона (формат +7 123 456-78-90)
     const phoneRegex = /^\+7\(\d{3}\)\d{3}-\d{2}-\d{2}$/;
     if (!phoneRegex.test(formData.phone)) {
       setErrors((prevErrors) => ({
@@ -60,13 +59,11 @@ export default function Form() {
       return;
     }
 
-    // Сброс ошибок перед отправкой данных
     setErrors({
       firstName: "",
       phone: "",
     });
 
-    // Здесь можно обработать отправку формы, например, вызвать функцию onFinish
     axios
       .post("http://localhost:5000/api/order", {
         name: formData.firstName,
@@ -84,10 +81,9 @@ export default function Form() {
     let initial = localStorage.getItem("basket");
     if (initial) {
       const parse = JSON.parse(initial) as IBasket[];
-
       dispatch(setBasket(parse));
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <form
@@ -102,7 +98,7 @@ export default function Form() {
           value={formData.firstName}
           onChange={handleInputChange}
         />
-        {errors.firstName && <p className={styles.error}>{errors.firstName}</p>} {/* Отображение ошибки валидации имени */}
+        {errors.firstName && <p className={styles.error}>{errors.firstName}</p>}
         <label htmlFor="phone">Телефон</label>
         <ReactInputMask
           mask="+7(999)999-99-99"
@@ -111,7 +107,7 @@ export default function Form() {
           value={formData.phone}
           onChange={handleInputChange}
         />
-        {errors.phone && <p className={styles.error}>{errors.phone}</p>} {/* Отображение ошибки валидации телефона */}
+        {errors.phone && <p className={styles.error}>{errors.phone}</p>}
         <label htmlFor="comment">Комментарий</label>
         <textarea
           name="comment"
