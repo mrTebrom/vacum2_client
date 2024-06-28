@@ -7,10 +7,12 @@ import { CloseCircleFilled } from "@ant-design/icons";
 import { IBasket } from "@/lib/interface";
 import { useAppDispatch, useAppSelector } from "@/lib/store.hook";
 import { changeQue, remove, setBasket } from "@/lib/slice/basket.slice";
+
 const Row = ({ item, destroy }: { item: IBasket; destroy: Function }) => {
   const dispatch = useAppDispatch();
   const { title, price, que, img, id, discont, typeDiscont } = item;
   const [value, setValue] = useState(que);
+
   const onChange = (value: number) => {
     setValue(value);
     let storage = localStorage.getItem("basket");
@@ -40,13 +42,8 @@ const Row = ({ item, destroy }: { item: IBasket; destroy: Function }) => {
       <div className={styles.layoutTitle}>{title}</div>
       <div className={styles.layoutPrice}>
         <s style={{ color: "red", fontSize: 12 }}>{price}</s>
-
         <br />
-        {
-          typeDiscont
-            ? price - (price * discont) / 100 // Если typeDiscont === true, применяем процентную скидку
-            : price - discont // Если typeDiscont === false, применяем фиксированную скидку
-        }
+        {typeDiscont ? price - (price * discont) / 100 : price - discont}
       </div>
       <div className={styles.layoutQue}>
         <InputNumber
@@ -55,14 +52,7 @@ const Row = ({ item, destroy }: { item: IBasket; destroy: Function }) => {
           style={{ pointerEvents: "visible" }}
         />
       </div>
-      <div className={styles.layoutItog}>
-        {
-          typeDiscont
-            ? (price - (price * discont) / 100) * value // Если typeDiscont === true, применяем процентную скидку
-            : (price - discont) * value // Если typeDiscont === false, применяем фиксированную скидку
-        }
-      </div>
-
+      <div className={styles.layoutItog}>{typeDiscont ? (price - (price * discont) / 100) * value : (price - discont) * value}</div>
       <div className={styles.close}>
         <Button
           shape="circle"
@@ -74,9 +64,11 @@ const Row = ({ item, destroy }: { item: IBasket; destroy: Function }) => {
     </div>
   );
 };
+
 const BasketRows = () => {
   const { products } = useAppSelector((state) => state.basket);
   const dispatch = useAppDispatch();
+
   const destroy = (id: number) => {
     const index = products.findIndex((item) => item.id === id);
     const copy = [...products];
@@ -84,14 +76,15 @@ const BasketRows = () => {
     localStorage.setItem("basket", JSON.stringify(copy));
     dispatch(remove({ id: id }));
   };
+
   useEffect(() => {
     let initial = localStorage.getItem("basket");
     if (initial) {
       const parse = JSON.parse(initial) as IBasket[];
-
       dispatch(setBasket(parse));
     }
-  }, []);
+  }, [dispatch]);
+
   return (
     <>
       {products?.map((item) => (
